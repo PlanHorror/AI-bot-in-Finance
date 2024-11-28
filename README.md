@@ -25,5 +25,6 @@ numpy <br/>
 pandas <br/>
 sklearn <br/>
 tensorflow <br/>
+hvplot <br/>
 
 
