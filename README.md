@@ -1,4 +1,4 @@
-<img width="677" alt="Screen Shot 2020-10-11 at 12 42 55 AM" src="https://user-images.githubusercontent.com/62320593/95682358-c27d2e00-0bb2-11eb-98b4-6385f45558b8.png">
+![bokeh_plot](https://github.com/user-attachments/assets/3fe301af-7f2f-43a5-8e3a-d5f38c202074)
 
 ### Libraries and/or Modules used:
 numpy <br/>
