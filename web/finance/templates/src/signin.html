@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  <style>
+    .card {
+      border-radius: 10px;
+    }
+    .card-header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #dee2e6;
+    }
+    .card-body {
+      padding: 2rem;
+    }
+    .form-control {
+      border-radius: 10px;
+    }
+    .btn {
+      border-radius: 10px;
+    }
+  </style>
+{% endblock %}
+{% block content %}
+
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header text-center">
+              <h3>Signup</h3>
+            </div>
+            <div class="card-body">
+              <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="username" class="form-label">Username</label>
+                  <input
+                    type="text"
+                    name="username"
+                    class="form-control"
+                    id="username"
+                    placeholder="Enter username" />
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    id="password"
+                    placeholder="Enter password" />
+                </div>
+                <button type="submit" class="btn btn-primary">Signup</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

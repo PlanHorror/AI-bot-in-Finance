@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% for key in results %}
+        <h1>{{ key.result }}</h1>
+        <img src="{{ key.result.url }}" alt="Image" style="max-width: 100%; height: auto;">
+    {% endfor %}
+{% endblock %}
+    
