@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <img src="{{result.result.url}}" alt="Description of image">
+    <div class="chart-container">
+        <h2>Biểu đồ giá coin</h2>
+        <img src="{{result.result.url}}" alt="Biểu đồ giá coin">
+    </div>
 {% endblock %}
