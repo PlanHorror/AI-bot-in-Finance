@@ -7,44 +7,61 @@
         justify-content: center;
         align-items: center;
         height: 100vh;
-        background-color: #f0f0f0;
+        background-color: #e3f2fd;
         margin: 0;
       }
       .container {
         text-align: center;
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(135deg, #ffffff, #e8f5e9);
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 100%;
       }
       .container h1 {
-        margin-bottom: 20px;
+        margin-bottom: 30px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #424242;
       }
       .container button {
         margin: 10px;
-        padding: 10px 20px;
+        padding: 12px 25px;
         font-size: 16px;
+        font-weight: bold;
         border: none;
-        border-radius: 4px;
+        border-radius: 25px;
         cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
       }
       .signin {
-        background-color: #4caf50;
+        background-color: #43a047;
         color: white;
       }
+      .signin:hover {
+        background-color: #66bb6a;
+        transform: scale(1.05);
+      }
       .signup {
-        background-color: #008cba;
+        background-color: #0288d1;
         color: white;
+      }
+      .signup:hover {
+        background-color: #03a9f4;
+        transform: scale(1.05);
+      }
+      a {
+        text-decoration: none;
       }
     </style>
     <div class="container">
       {% if user %}
-        <h1>Welcome, {{user}}</h1>
+        <h1>Welcome back, {{user}}!</h1>
       {% else %}
-        <h1>Welcome to Finance</h1>
+        <h1>Welcome to Finance Portal</h1>
       {% endif %}
       <a href="/signin"><button class="signin">Sign In</button></a>
       <a href="/signup"><button class="signup">Sign Up</button></a>
     </div>
 {% endblock %}
-
