@@ -1,10 +1,20 @@
 {% extends 'base.html' %}
-
+{%load crispy_forms_tags %} 
 {% block content %}
-    <div style="background-color: black; padding: 20px;">
+{% include 'navbar.html' %}
+<div style="height: 10vh;"></div>
+<h2 class="text-center">Upload Your Financial Data</h2>
+<div class="d-flex justify-content-center">
+  <div class="col-md-6">
+    <div class="form-group">
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Submit</button>
+        {{ form|crispy }}
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
     </div>
+  </div>
+</div>
 {% endblock %}

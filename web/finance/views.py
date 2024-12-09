@@ -19,10 +19,12 @@ def signup(request):
         print(request.POST)
         username = request.POST['username']
         password = request.POST['password']
+        password1 = request.POST['password1']
         if User.objects.filter(username=username).exists():
             return render(request, 'src/signup.html', {'error': 'Username is already taken'})
         else:
-            print('Creating user')
+            if password != password1:
+                return render(request, 'src/signup.html', {'error': 'Passwords do not match'})
             user = User.objects.create_user(username=username, password=password)
             user.save()
         return redirect('signin')
@@ -39,7 +41,7 @@ def signin(request):
             auth.login(request, user)
             return redirect('index')
     return render(request, 'src/signin.html')
-@login_required
+@login_required(login_url='signin')
 def index(request):
     form = UploadFileForm()
     if request.method == 'POST' and request.FILES:
@@ -65,12 +67,15 @@ def index(request):
 
         return redirect('index')
     return render(request, 'src/index.html', {'form': form})
-@login_required
+@login_required(login_url='signin')
 def results(request):
     results = Result.objects.filter(user=request.user)
-    print(results,'results')
     return render(request, 'src/results.html', {'results': results})
-@login_required
+@login_required(login_url='signin')
 def result(request, pk):
     result = Result.objects.get(pk=pk)
     return render(request, 'src/result.html', {'result': result})
+@login_required(login_url='signin')
+def logout(request):
+    auth.logout(request)
+    return redirect('signin')

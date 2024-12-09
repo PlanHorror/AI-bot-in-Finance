@@ -1,16 +1,8 @@
 {% extends 'base.html' %} 
 {% block content %}
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background-color: #e3f2fd;
-        margin: 0;
-      }
-      .container {
+
+      .main {
         text-align: center;
         background: linear-gradient(135deg, #ffffff, #e8f5e9);
         padding: 30px;
@@ -19,13 +11,13 @@
         max-width: 400px;
         width: 100%;
       }
-      .container h1 {
+      .main h1 {
         margin-bottom: 30px;
         font-size: 24px;
         font-weight: bold;
         color: #424242;
       }
-      .container button {
+      .main button {
         margin: 10px;
         padding: 12px 25px;
         font-size: 16px;
@@ -51,17 +43,18 @@
         background-color: #03a9f4;
         transform: scale(1.05);
       }
-      a {
-        text-decoration: none;
-      }
+
     </style>
-    <div class="container">
-      {% if user %}
+    {% include 'navbar.html' %}
+    <div class="container text-center mt-5 main">
+      {% if user.is_authenticated %}
         <h1>Welcome back, {{user}}!</h1>
+        <a href="/logout"><button class="signin">Logout</button></a>
       {% else %}
-        <h1>Welcome to Finance Portal</h1>
-      {% endif %}
-      <a href="/signin"><button class="signin">Sign In</button></a>
+        <h1>Welcome to Finance Portal</h1>      
+        <a href="/signin"><button class="signin">Sign In</button></a>
       <a href="/signup"><button class="signup">Sign Up</button></a>
+      {% endif %}
+
     </div>
 {% endblock %}
