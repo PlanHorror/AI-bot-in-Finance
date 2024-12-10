@@ -132,4 +132,4 @@ def app(price_file, fng_file, pk):
     plt.savefig(result_path)
     plt.close()
 
-    return f'media/image/result_{pk}'
+    return f'image/result_{pk}'
