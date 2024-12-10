@@ -41,13 +41,14 @@ def load_and_prepare_data(price_file, fng_file, window_size=1):
     print(df.head())
     
     # Prepare data
-    feature_column = 1  # Fear and Greed index
-    target_column = 1   # Close price
+    feature_column = 0  # Fear and Greed index
+    target_column = 1  # Close price
     X, y = window_data(df, window_size, feature_column, target_column)
     
     # Debug: Print the shapes of X and y
     print("X shape:", X.shape)
     print("y shape:", y.shape)
+    print(df.columns)
     
     # Check if X and y are not empty
     if X.size == 0 or y.size == 0:
