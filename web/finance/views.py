@@ -4,7 +4,7 @@ from .models import HistoricalData, Result
 from django.contrib.auth import authenticate
 from django.contrib import messages, auth
 from django.shortcuts import redirect
-from .forms import UploadFileForm
+from .forms import UploadFileForm, UploadTwoFilesForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 import sys
@@ -43,28 +43,43 @@ def signin(request):
     return render(request, 'src/signin.html')
 @login_required(login_url='signin')
 def index(request):
-    form = UploadFileForm()
+    form = UploadTwoFilesForm()
     if request.method == 'POST' and request.FILES:
-        form = UploadFileForm(request.POST, request.FILES)
+        form = UploadTwoFilesForm(request.POST, request.FILES)
         if form.is_valid():
-            file = request.FILES['csv_file']
-            upload = HistoricalData(user=request.user, csv_file=file)
-            upload.save()
-            file_path = upload.csv_file.path
-            index = upload.pk
+            price_file = request.FILES['price_csv']
+            fng_file = request.FILES['fng_csv']
+            
+            # Save price data
+            price_upload = HistoricalData(user=request.user, csv_file=price_file)
+            price_upload.save()
+            
+            # Save Fear and Greed data
+            fng_upload = HistoricalData(user=request.user, csv_file=fng_file)
+            fng_upload.save()
+            
             try:
-                result_image = app(file_path,index) + '.png'
-                result = Result(user=request.user, historical_data=upload, result=result_image)
+                # Pass both file paths to app function
+                result_image = app(
+                    price_upload.csv_file.path, 
+                    fng_upload.csv_file.path, 
+                    price_upload.pk
+                ) + '.png'
+                
+                result = Result(
+                    user=request.user, 
+                    historical_data=price_upload, 
+                    result=result_image
+                )
                 result.save()
                 return redirect('result', pk=result.pk)
-            except(Exception ) as e:
+            
+            except Exception as e:
                 print(e)
-                upload.delete()
-                return render(request, 'src/index.html', {'error': 'Invalid file'})
-                
-        else:
-            upload.delete()
-
+                price_upload.delete()
+                fng_upload.delete()
+                return render(request, 'src/index.html', {'error': 'Invalid files'})
+        
         return redirect('index')
     return render(request, 'src/index.html', {'form': form})
 @login_required(login_url='signin')
